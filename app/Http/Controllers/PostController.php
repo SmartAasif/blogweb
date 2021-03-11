@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -12,7 +13,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userid)
     {
         //
         // $posts = Post::with('user')->paginate(10);
@@ -20,7 +21,17 @@ class PostController extends Controller
         //     'posts' => $posts
 
         // ]);
-        $posts = Post::all();
+        
+        // $posts = Post::all();
+
+        $posts=Post::where('user_id','=',$userid)->get();
+
+        // $posts=DB::table('posts')->where(['user_id'=>$userid])->get();
+
+
+        // $users = DB::table('users')->where('votes', '>', 100)->get();
+
+
         return view('postlist', compact('posts'));
     }
 
@@ -67,7 +78,9 @@ class PostController extends Controller
         $post->name = $req->input('name');
         $post->content = $req->input('content');
         $post->save();
-        return redirect('postlist');
+
+        $userid=$req->input('userId');
+        return redirect("postlist/$userid");
         //
     }
 
@@ -120,7 +133,11 @@ class PostController extends Controller
         $post->name=$request->name;
         $post->content=$request->content;
         $post->save();
-        return redirect('postlist')->with('successMsg', 'Post successfully updated');
+
+        $userid=$request->userId;
+        
+        return redirect("postlist/$userid");
+        // return redirect('postlist')->with('successMsg', 'Post successfully updated');
     }
 
     /**
@@ -132,8 +149,15 @@ class PostController extends Controller
     public function delete($id)
     {
         //
-        Post::find($id)->delete();
 
-        return redirect('postlist')->with('successMsg', 'Post successfully deleted');
+        $posts=Post::where('id','=',$id)->get();
+        Post::find($id)->delete();
+        
+        $userid=$posts[0]->user_id;
+        echo($posts);
+
+        return redirect("postlist/$userid");
+
+        // return redirect('postlist')->with('successMsg', 'Post successfully deleted');
     }
 }

@@ -18,64 +18,6 @@
                 <!-- <h4 class="page-title">Posts</h4> -->
                 <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#exampleModal1">Create Post</button>
 
-                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-lg-12">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0">Create Post</h4>
-                                        <p class="text-muted font-14 m-b-20">
-
-                                        </p>
-
-                                        <form action="{{route('stored')}}" method="POST" class="parsley-examples">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label>User Id</label>
-                                                <div>
-                                                    <input name="userId" type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <div>
-                                                    <input name="name" type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Content</label>
-                                                <div>
-                                                    <textarea name="content" type="text" class="form-control" required></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-3">
-                                                <div class="col-12 text-center">
-                                                    <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Create</button>
-                                                    <button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-
-                                    </div> <!-- end card-box -->
-                                </div> <!-- end col -->
-                            </div>
-                            <!-- end row -->
-
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -143,6 +85,8 @@
                                         selectedRow = td.parentElement.parentElement;
                                         document.getElementById('editId').value = selectedRow.cells[0].innerHTML;
                                         document.getElementById('edituserId').value = selectedRow.cells[1].innerHTML;
+                                        document.getElementById('editIdp').innerHTML = selectedRow.cells[0].innerHTML;
+                                        document.getElementById('edituserIdp').innerHTML = selectedRow.cells[1].innerHTML;
                                         document.getElementById('editname').value = selectedRow.cells[2].innerHTML;
                                         document.getElementById('editcontent').value = selectedRow.cells[3].innerHTML;
                                     }
@@ -257,14 +201,16 @@
                                                 <div class="form-group">
                                                     <label>Id</label>
                                                         <div>
-                                                            <input id="editId" name="id" type="text" class="form-control"  required />
+                                                            <input id="editId" name="id" type="hidden" class="form-control"  required />
                                                         </div>
+                                                        <label id="editIdp" ></label>
                                                  </div>
                                                  <div class="form-group">
                                                  <label>User Id</label>
                                                     <div>
-                                                        <input id="edituserId" name="userId" type="text" class="form-control"  required />
+                                                        <input id="edituserId" name="userId" type="hidden" class="form-control"  required />
                                                     </div>
+                                                    <label id="edituserIdp"></label>
                                                  </div>
                                                 
                                                 <div class="form-group">
@@ -297,6 +243,71 @@
                         </div>
                     </div>
                 </div>
+                <!-- end edit modal -->
+            <!-- create modal -->
+            
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Post</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12">
+                                    <div class="card-box">
+                                        <h4 class="header-title m-t-0">Create Post</h4>
+                                        <p class="text-muted font-14 m-b-20">
+
+                                        </p>
+
+                                        <form action="{{route('stored')}}" method="POST" class="parsley-examples">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <div>
+                                                    <input name="userId" type="hidden"  value="{{$post->user_id}}" class="form-control" />
+                                                </div>
+                                                <label>{{$post->user_id}}</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <div>
+                                                    <input name="name" type="text" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Content</label>
+                                                <div>
+                                                    <textarea name="content" type="text" class="form-control" required></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-12 text-center">
+                                                    <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Create</button>
+                                                    <button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button>
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+
+                                    </div> <!-- end card-box -->
+                                </div> <!-- end col -->
+                            </div>
+                            <!-- end row -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+            <!-- end create modal -->
+
+
             </div>
 
 

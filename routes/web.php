@@ -21,19 +21,18 @@ use App\Http\Controllers\SignupController;
 Auth::routes();
 Route::view("login",'auth/login')->name('login');
 
+Route::view("register",'auth/register')->name('register');
 Route::view("dash",'dashboard')->name('dash');
-// Route::view('login','auth/login')->name('login');
-
 
 Route::get('/show/{id}',[PostController::class, 'show'])->name('show');
 
-Route::get("/postlist", [PostController::class, 'index'])->name('postlist');
+// Route::get("/postlist", [PostController::class, 'index'])->name('postlist');
+
+Route::get("postlist/{id}", [PostController::class, 'index'])->name('postlist');
 
 Route::get("create", [PostController::class, 'create'])->name('create');
 Route::get("edit/{id}", [PostController::class, 'edit'])->name('edit');
 Route::post("update/{id}", [PostController::class, 'update'])->name('update');
-
-// Route::view("login",'auth/login')->name('login');
 
 
 
@@ -72,16 +71,18 @@ Route::view("profile", 'profile');
 
 Route::get('login', function () {
     if (session()->has('email')) {
-        return redirect('postlist');
+        // return redirect('postlist');
+        return back();
     }
     return view('auth/login');
     // return redirect("{{route('second', ['auth', 'login'])}}");
 });
 
 
-Route::get('/register', function () {
-    if (session()->has('user')) {
-        return redirect('postlist');
+Route::get('register', function () {
+    if (session()->has('email')) {
+        // return redirect('postlist');
+        return back();
     }
     return view('auth/register');
 });
