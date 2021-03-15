@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 
 class SignupController extends Controller
@@ -25,7 +26,11 @@ class SignupController extends Controller
         $user->save();
         $data=$req->input();
         $req->session()->put('email',$data['email']);
-        return redirect('postlist');
+
+        $userId=DB::table('users')->where(['email' =>$req->email,'password'=>$req->password])->get();
+        $_id=$userId[0]->id;
+
+        return redirect("postlist/$_id");
         
     }
 }

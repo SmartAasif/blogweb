@@ -27,19 +27,27 @@ class UserAuth extends Controller
         {
 
         $userid=DB::table('users')->where(['email'=>$username,'password'=>$password])->get();
+
+
         // $get_result_arr = json_decode($userid, true);
         // $id=$userid->user_id;
         // $userid=DB::table('users')->find(1);
 
          $id=$userid[0]->id;
         // echo($id);
-        
 
         $data=$req->input();
-        $req->session()->put('email',$data['email']);
+
+        // echo($data['password']);
+        // $arr = array('name' => 'Joe', 'languages' => 'PHP','email'=> 'aasif@gmail.com');
+        
+        // $req->session()->put('email',$data['email']);
 
         return redirect("postlist/$id");
-        // echo session('email');
+            
+            // $req->session()->put(['mobile'=> $data['mobile'],'email'=>$data['email']]);
+
+            // echo session('email') . " " . session('mobile');
 
         }
         else

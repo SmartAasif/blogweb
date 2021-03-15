@@ -76,29 +76,10 @@
                                 <td>{{$post->updated_at}}</td>
 
                                 <td><button class="btn btn-primary btn-lg" onclick="onDetails(this)" data-toggle="modal" data-target="#exampleModal2"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
-                                
-                                <td><button  class="btn btn-primary btn-lg" onclick="onEdit(this)" data-toggle="modal" data-target="#exampleModal"><i class="icon-pencil" aria-hidden="true"></button></i></td>
 
-                                <script> function onEdit(td){
-                                        var node = td.parentNode.parentNode.rowIndex;
-                                        i=node;
-                                        selectedRow = td.parentElement.parentElement;
-                                        document.getElementById('editId').value = selectedRow.cells[0].innerHTML;
-                                        document.getElementById('edituserId').value = selectedRow.cells[1].innerHTML;
-                                        document.getElementById('editIdp').innerHTML = selectedRow.cells[0].innerHTML;
-                                        document.getElementById('edituserIdp').innerHTML = selectedRow.cells[1].innerHTML;
-                                        document.getElementById('editname').value = selectedRow.cells[2].innerHTML;
-                                        document.getElementById('editcontent').value = selectedRow.cells[3].innerHTML;
-                                    }
+                                <td><button class="btn btn-primary btn-lg" onclick="onEdit(this)" data-toggle="modal" data-target="#exampleModal"><i class="icon-pencil" aria-hidden="true"></button></i></td>
 
-                                    function onDetails(td){
-                                        var node = td.parentNode.parentNode.rowIndex;
-                                        i=node;
-                                        selectedRow = td.parentElement.parentElement;
-                                        document.getElementById('title').innerHTML=selectedRow.cells[2].innerHTML;
-                                        document.getElementById('content').innerHTML=selectedRow.cells[3].innerHTML;
-                                    }
-                                </script>
+
                                 <!-- <td><a class="btn btn-primary btn-lg" href="{{route('edit',$post->id)}}" data-toggle="modal" data-target="#exampleModal"><i class="icon-pencil" aria-hidden="true"></i></a></td> -->
 
 
@@ -141,7 +122,7 @@
     <!-- end row -->
 
 
-  
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -159,165 +140,196 @@
                             <div class="card-box">
                                 <h2 id="title" class="header-title m-t-0"></h2>
                                 <p id="content" class="text-muted font-14 m-b-20">
-                                
+
                                 </p>
                             </div>
                         </div>
                     </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 
 
 
 
-                <!-- edit Modal -->
+    <!-- edit Modal -->
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
 
-                                    <div class="col-lg-12">
-                                        <div class="card-box">
-                                            <h4 class="header-title m-t-0">Edit Post</h4>
-                                            <p class="text-muted font-14 m-b-20">
+                        <div class="col-lg-12">
+                            <div class="card-box">
+                                <h4 class="header-title m-t-0">Edit Post</h4>
+                                <p class="text-muted font-14 m-b-20">
 
-                                            </p>
+                                </p>
 
-                                            <form action="{{route('update',$post->id)}}" method="POST" class="parsley-examples">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label>Id</label>
-                                                        <div>
-                                                            <input id="editId" name="id" type="hidden" class="form-control"  required />
-                                                        </div>
-                                                        <label id="editIdp" ></label>
-                                                 </div>
-                                                 <div class="form-group">
-                                                 <label>User Id</label>
-                                                    <div>
-                                                        <input id="edituserId" name="userId" type="hidden" class="form-control"  required />
-                                                    </div>
-                                                    <label id="edituserIdp"></label>
-                                                 </div>
-                                                
-                                                <div class="form-group">
-                                                    <label>Name</label>
-                                                    <div>
-                                                        <input id="editname" name="name" type="text" class="form-control"  required />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Content</label>
-                                                    <div>
-                                                        <input id="editcontent" name="content" type="text" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                    <div class="col-12 text-center">
-                                                        <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Update</button>
-                                                        <a href="postlist"><button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button></a>
-                                                    </div>
-                                                </div>
+                                <form action="{{route('update')}}" method="POST" class="parsley-examples">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Id</label>
+                                        <div>
+                                            <input id="editId" name="id" type="hidden" class="form-control" required />
+                                        </div>
+                                        <label id="editIdp"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>User Id</label>
+                                        <div>
+                                            <input id="edituserId" name="userId" type="hidden" class="form-control" required />
+                                        </div>
+                                        <label id="edituserIdp"></label>
+                                    </div>
 
-                                            </form>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <div>
+                                            <input id="editname" name="name" type="text" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Content</label>
+                                        <div>
+                                            <input id="editcontent" name="content" type="text" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12 text-center">
+                                            <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Update</button>
+                                            <a href="postlist"><button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button></a>
+                                        </div>
+                                    </div>
 
-                                        </div> <!-- end card-box -->
-                                    </div> <!-- end col -->
+                                </form>
+
+                            </div> <!-- end card-box -->
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end edit modal -->
+    <!-- create modal -->
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">Create Post</h4>
+                            <p class="text-muted font-14 m-b-20"></p>
+                            <form action="{{route('stored')}}" method="POST" class="parsley-examples">
+                                @csrf
+
+                                
+                                <div class="form-group">
+                                <label for="languages">Choose a Language</label>
+                                <select name="language" id="language">
+                                @foreach($langs as $lang)
+                                    <option value="{{$lang->id}}">{{$lang->name}}</option>
+                                @endforeach
+                                </select>
                                 </div>
-                                <!-- end row -->
+                               
 
-                            </div>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <label>User Id</label>
+                                    <div>
+                                        <input name="userId" type="hidden" value="{{$id}}" class="form-control" />
+                                    </div>
+                                    <label id="edituserI">{{ $id }}</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <div>
+                                        <input name="name" type="text" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Content</label>
+                                    <div>
+                                        <textarea name="content" type="text" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Create</button>
+                                        <button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div> <!-- end card-box -->
+                    </div> <!-- end col -->
                 </div>
-                <!-- end edit modal -->
-            <!-- create modal -->
-            
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-lg-12">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0">Create Post</h4>
-                                        <p class="text-muted font-14 m-b-20">
-
-                                        </p>
-
-                                        <form action="{{route('stored')}}" method="POST" class="parsley-examples">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label>User Id</label>
-                                                <div>
-                                                    <input name="userId" type="hidden"  value="{{$post->user_id}}" class="form-control" />
-                                                </div>
-                                                <label>{{$post->user_id}}</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <div>
-                                                    <input name="name" type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Content</label>
-                                                <div>
-                                                    <textarea name="content" type="text" class="form-control" required></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-3">
-                                                <div class="col-12 text-center">
-                                                    <button type="submit" class="btn btn-success waves-effect waves-light m-1"><i class="fe-check-circle mr-1"></i> Create</button>
-                                                    <button type="button" class="btn btn-light waves-effect waves-light m-1" data-dismiss="modal"><i class="fe-x mr-1"></i> Cancel</button>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-
-                                    </div> <!-- end card-box -->
-                                </div> <!-- end col -->
-                            </div>
-                            <!-- end row -->
-
-                        </div>
-
-                    </div>
-                </div>
-
-            <!-- end create modal -->
-
+                <!-- end row -->
 
             </div>
 
+        </div>
+    </div>
 
-        </div> <!-- container -->
-        @endsection
+    <!-- end create modal -->
 
-        @section('script')
-        <!-- Plugins js-->
-        <script src="{{asset('assets/libs/footable/footable.min.js')}}"></script>
 
-        <!-- Page js-->
-        <script src="{{asset('assets/js/pages/foo-tables.init.js')}}"></script>
-        @endsection
+</div>
+
+
+</div> <!-- container -->
+    <script>
+        function onEdit(td) {
+            var node = td.parentNode.parentNode.rowIndex;
+            i = node;
+            selectedRow = td.parentElement.parentElement;
+            document.getElementById('editId').value = selectedRow.cells[0].innerHTML;
+            document.getElementById('edituserId').value = selectedRow.cells[1].innerHTML;
+            document.getElementById('editIdp').innerHTML = selectedRow.cells[0].innerHTML;
+            document.getElementById('edituserIdp').innerHTML = selectedRow.cells[1].innerHTML;
+            document.getElementById('editname').value = selectedRow.cells[2].innerHTML;
+            document.getElementById('editcontent').value = selectedRow.cells[3].innerHTML;
+        }
+
+        function onDetails(td) {
+            var node = td.parentNode.parentNode.rowIndex;
+            i = node;
+            selectedRow = td.parentElement.parentElement;
+            document.getElementById('title').innerHTML = selectedRow.cells[2].innerHTML;
+            document.getElementById('content').innerHTML = selectedRow.cells[3].innerHTML;
+        }
+    </script>
+@endsection
+
+
+@section('script')
+<!-- Plugins js-->
+<script src="{{asset('assets/libs/footable/footable.min.js')}}"></script>
+
+<!-- Page js-->
+<script src="{{asset('assets/js/pages/foo-tables.init.js')}}"></script>
+@endsection

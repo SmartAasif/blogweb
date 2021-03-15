@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{Language,PostsTranslation, Post};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -24,15 +24,15 @@ class PostController extends Controller
         
         // $posts = Post::all();
 
+        $langs= Language::all();
+        // dd($langs->toArray());
+
         $posts=Post::where('user_id','=',$userid)->get();
 
         // $posts=DB::table('posts')->where(['user_id'=>$userid])->get();
 
 
-        // $users = DB::table('users')->where('votes', '>', 100)->get();
-
-
-        return view('postlist', compact('posts'));
+        return view('postlist', [ 'posts'=> $posts , 'id'=>$userid, 'langs' =>$langs ]);
     }
 
     /**
@@ -43,6 +43,7 @@ class PostController extends Controller
     public function create()
     {
         //
+
         return view('create');
     }
 
@@ -77,9 +78,32 @@ class PostController extends Controller
         $post->user_id = $req->input('userId');
         $post->name = $req->input('name');
         $post->content = $req->input('content');
-        $post->save();
-
+     
         $userid=$req->input('userId');
+        $post->save();
+        
+        
+        $posts=Post::where('user_id','=',$userid)->get();
+
+        $count=Post::where('user_id','=',$userid)->count();
+
+        // echo($count);
+
+        // $posts=DB::table('users')->where(['email'=>$username,'password'=>$password])->get();
+
+        $lang=new PostsTranslation();
+
+        // $lang->id=$req->lang;
+        $lang->post_id=$posts[$count-1]->id;
+        $lang->language_id=$req->language;
+        $lang->code="EN";
+        $lang->save();
+        // $lang->name=;
+        
+        
+
+        
+
         return redirect("postlist/$userid");
         //
     }
@@ -119,7 +143,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $this->validate($request,[
             'userId'=>'required',
